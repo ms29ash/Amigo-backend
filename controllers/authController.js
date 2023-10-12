@@ -46,4 +46,4 @@ const registerController = asyncHandler(async (req, res, next) => {
     return res.status(201).json({ token: token, message: "Registration completed successfully" })
 });
 
-module.exports = { loginController, registerController, userController };
+module.exports = { loginController, registerController };

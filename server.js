@@ -5,6 +5,7 @@ const authRoutes = require('./routes/authRoutes');
 const connectToDB = require('./config/db');
 require('dotenv').config()
 const { notFoundHandler, errorHandler } = require('./middleware/errorHandler');
+const userRouter = require('./routes/userRoutes');
 
 
 connectToDB()
@@ -16,6 +17,7 @@ app.use(express.json())
 
 
 app.use('/api/auth', authRoutes)
+app.use('/api/user', userRouter)
 
 
 app.use(notFoundHandler)
