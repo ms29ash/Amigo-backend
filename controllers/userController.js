@@ -1,9 +1,10 @@
 const asyncHandler = require('express-async-handler');
 const User = require('../models/UserModel');
+const expressAsyncHandler = require('express-async-handler');
 
 
-// Search user
-//  /api/auth/user
+// Search users
+//GET  /api/auth/user
 const userController = asyncHandler(async (req, res) => {
     const keyword = req.query.search;
 
@@ -28,4 +29,17 @@ const userController = asyncHandler(async (req, res) => {
 });
 
 
-module.exports = { userController }
+
+// fetch user data
+//GET  /api/auth/userdata
+const fetchUser = expressAsyncHandler(async (req, res) => {
+
+    let user = await User.findOne({ _id: req.user.id }).select('-password')
+    if (user) {
+        return res.status(200).json({ user })
+    } else {
+        throw new Error("User not found")
+    }
+})
+
+module.exports = { userController, fetchUser }
