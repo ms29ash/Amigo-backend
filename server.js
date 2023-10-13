@@ -7,6 +7,7 @@ require('dotenv').config()
 const { notFoundHandler, errorHandler } = require('./middleware/errorHandler');
 const userRouter = require('./routes/userRoutes');
 const chatRoutes = require('./routes/ChatRoutes');
+const msgRoutes = require('./routes/msgRoutes');
 
 
 connectToDB()
@@ -20,6 +21,7 @@ app.use(express.json())
 app.use('/api/auth', authRoutes)
 app.use('/api/user', userRouter)
 app.use('/api/chat', chatRoutes)
+app.use('/api/message', msgRoutes)
 
 
 app.use(notFoundHandler)
