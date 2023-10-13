@@ -8,7 +8,7 @@ const { notFoundHandler, errorHandler } = require('./middleware/errorHandler');
 const userRouter = require('./routes/userRoutes');
 const chatRoutes = require('./routes/ChatRoutes');
 const msgRoutes = require('./routes/msgRoutes');
-
+const cors = require('cors');
 
 connectToDB()
 
@@ -16,6 +16,7 @@ connectToDB()
 const port = process.env.PORT || 4000;
 
 app.use(express.json())
+app.use(cors())
 
 
 app.use('/api/auth', authRoutes)

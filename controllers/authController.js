@@ -17,11 +17,14 @@ const loginController = asyncHandler(async (req, res, next) => {
 
     let user = await User.findOne({ email })
     if (!user) {
-        res.status(404).json({ message: 'User not found' });
+        return res.status(404).json({ message: 'User not found' });
     }
     let passMatch = await user.comparePass(password);
     if (passMatch) {
-        res.status(200).json({ token: genrateToken(user._id), message: "Logged in successfully" })
+        return res.status(200).json({ token: genrateToken(user._id), message: "Logged in successfully" })
+    } else {
+        return res.status(400).json({ message: 'Passwords do not match' });
+
     }
 
 });
