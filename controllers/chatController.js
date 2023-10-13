@@ -5,7 +5,7 @@ const Chat = require("../models/ChatModel")
 // Create or Access Chat
 // POST /api/chat/
 const chatAccess = expressAsyncHandler(async (req, res) => {
-    const { userId } = req.body;
+    const { userId, chatName } = req.body;
     if (!userId) {
         throw new Error("user is required")
     }
@@ -29,7 +29,7 @@ const chatAccess = expressAsyncHandler(async (req, res) => {
         res.status(200).json(existingChat[0])
     } else {
         const newChat = {
-            chatName: 'sender',
+            chatName: chatName,
             isGroupChat: false,
             users: [req.user.id, userId]
         }
