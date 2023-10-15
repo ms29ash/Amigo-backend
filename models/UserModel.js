@@ -22,7 +22,7 @@ const userSchema = mongoose.Schema({
         default: "https://med.gov.bz/wp-content/uploads/2020/08/dummy-profile-pic.jpg"
     }
 
-})
+}, { timestamps: true })
 
 userSchema.pre("save", async function (next) {
     if (!this.isModified('password')) {
