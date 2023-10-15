@@ -6,7 +6,7 @@ const Chat = require("../models/ChatModel");
 // GET /api/message/:chatId
 // Protected
 const fetchMessages = expressAsyncHandler(async (req, res) => {
-    const messages = await Message.find({}).populate('sender', 'name pic emai').populate('chat');
+    const messages = await Message.find({chat: req.params.chatId}).populate('sender', 'name pic emai').populate('chat');
     res.status(200).json({ messages })
 
 })

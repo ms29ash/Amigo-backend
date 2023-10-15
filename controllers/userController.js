@@ -11,21 +11,16 @@ const userController = asyncHandler(async (req, res) => {
     const query = keyword
         ? {
             $and: [
-                {
-                    $or: [
-                        { name: { $regex: new RegExp(keyword, 'i') } },
-                        { email: { $regex: new RegExp(keyword, 'i') } },
-                    ],
-                },
+                { name: { $regex: new RegExp(keyword, 'i') } },
                 {
                     _id: { $ne: req.user.id },
                 },
             ],
         }
-        : {};
+        : { _id: { $ne: req.user.id } };
 
     let users = await User.find(query).sort({ name: 1 });
-    res.send(users);
+    res.status(200).json(users);
 });
 
 
