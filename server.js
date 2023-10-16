@@ -10,6 +10,7 @@ const msgRoutes = require("./routes/msgRoutes");
 const socketIo = require("socket.io");
 const cors = require("cors");
 const setupSocket = require("./socket");
+const updateRoutes = require("./routes/updateRoutes");
 
 connectToDB();
 
@@ -25,6 +26,7 @@ app.use("/api/auth", authRoutes);
 app.use("/api/user", userRouter);
 app.use("/api/chat", chatRoutes);
 app.use("/api/message", msgRoutes);
+app.use("/api/updates", updateRoutes);
 
 app.use(notFoundHandler);
 app.use(errorHandler);
