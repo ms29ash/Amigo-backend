@@ -1,7 +1,7 @@
 const Message = require("../../models/MessageModel");
 const Chat = require("../../models/ChatModel");
 
-const sendMessage = async (io, socket, newMsg, id) => {
+const sendMessage = async (io, socket, userSocketMap, newMsg, id) => {
   if (newMsg && id) {
     const newData = {
       sender: id,

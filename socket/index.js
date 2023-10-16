@@ -2,6 +2,8 @@ const socketio = require("socket.io");
 const chatListener = require("./listeners/chatListener");
 const msgListener = require("./listeners/msgListeners");
 
+const userSocketMap = new Map();
+
 const setupSocket = (server) => {
   const io = socketio(server, {
     pingTimeout: 60000,
@@ -11,9 +13,12 @@ const setupSocket = (server) => {
   });
 
   const onConnection = (socket) => {
-    console.log("connected to socket");
-    chatListener(io, socket);
-    msgListener(io, socket);
+    socket.on("setup", (data) => {
+      userSocketMap.set(data, socket.id);
+    });
+
+    chatListener(io, socket, userSocketMap);
+    msgListener(io, socket, userSocketMap);
   };
 
   io.on("connection", onConnection);
