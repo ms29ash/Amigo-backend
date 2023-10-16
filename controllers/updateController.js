@@ -17,7 +17,10 @@ const getNotifications = expressAsyncHandler(async (req, res) => {
 // GET /api/updates/requests
 const getRequests = expressAsyncHandler(async (req, res) => {
   const requests = await Request.find({
-    recipient: req.user.id,
+    $or: [
+      { recipient: req.user.id, status: "pending" },
+      { requester: req.user.id, status: "pending" },
+    ],
   })
     .populate("requester", "-password")
     .populate("recipient", "-password")

@@ -11,6 +11,8 @@ const socketIo = require("socket.io");
 const cors = require("cors");
 const setupSocket = require("./socket");
 const updateRoutes = require("./routes/updateRoutes");
+const verifyUser = require("./middleware/verifyUser");
+const Request = require("./models/RequestModel");
 
 connectToDB();
 
