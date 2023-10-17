@@ -85,9 +85,13 @@ const acceptRequest = async (io, socket, userSocketMap, chat, id) => {
 
         //sending chat and notification to requester
         if (user) {
-          io.to(user).emit("accecptReq", { fullChat, newNoti });
+          io.to(user).emit("accecptReq", {
+            fullChat,
+            newNoti,
+            reqId: chat.reqId,
+          });
         }
-        socket.emit("onAccecptReq", fullChat);
+        socket.emit("onAccecptReq", { fullChat, reqId: chat.reqId });
       }
     }
   }
@@ -113,9 +117,9 @@ const rejectRequest = async (io, socket, userSocketMap, data, id) => {
       });
 
       if (user) {
-        io.to(user).emit("rejectReq", newNoti);
+        io.to(user).emit("rejectReq", { newNoti, reqId: data.reqId });
       }
-      socket.emit("onReject");
+      socket.emit("onReject", { reqId: data.reqId });
     }
   }
 };
